@@ -499,6 +499,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\hal_light_inten\Hal_light_inten.c</FilePath>
             </File>
+            <File>
+              <FileName>hal_extr_pump.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\hal_extr_pump\hal_extr_pump.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1228,6 +1233,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\hal_light_inten\Hal_light_inten.c</FilePath>
             </File>
+            <File>
+              <FileName>hal_extr_pump.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\hal_extr_pump\hal_extr_pump.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1819,7 +1829,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER, STM32F10X_MD, Gokit</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Lib\CM3;..\Lib\inc;..\User;..\User\Hal_EXTI;..\User\Hal_Usart;..\User\Hal_moisture;..\User\hal_pump;..\User\hal_light_inten</IncludePath>
+              <IncludePath>..\Lib\CM3;..\Lib\inc;..\User;..\User\Hal_EXTI;..\User\Hal_Usart;..\User\Hal_moisture;..\User\hal_pump;..\User\hal_light_inten;..\User\hal_extr_pump;..\User\hal_fan</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1956,6 +1966,11 @@
               <FileName>Hal_light_inten.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\hal_light_inten\Hal_light_inten.c</FilePath>
+            </File>
+            <File>
+              <FileName>hal_extr_pump.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\hal_extr_pump\hal_extr_pump.c</FilePath>
             </File>
           </Files>
         </Group>

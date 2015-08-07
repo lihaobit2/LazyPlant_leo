@@ -1819,7 +1819,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER, STM32F10X_MD, Gokit</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Lib\CM3;..\Lib\inc;..\User;..\User\Hal_EXTI;..\User\Hal_Usart;..\User\Hal_moisture</IncludePath>
+              <IncludePath>..\Lib\CM3;..\Lib\inc;..\User;..\User\Hal_EXTI;..\User\Hal_Usart;..\User\Hal_moisture;..\User\hal_pump;..\User\hal_light_inten</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
