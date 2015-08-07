@@ -74,17 +74,20 @@ typedef enum
 
 typedef enum
 {
-#if 0
-  SetLED_OnOff    = 0x01,
-	SetLED_Color    = 0x02,
-	SetLED_R       	= 0x04,   
-	SetLED_G    		= 0x08,     
-	SetLED_B  		 	= 0x10,     
-	SetMotor			 	= 0x20,	
-#endif
 	SET_MODE				= 0x01,
     SET_PUMP_SWITCH		= 0x02,
-	SET_LED_INTEN	  		= 0x04,	
+	SET_EXTR_PUMP_SWITCH 	= 0x04,
+	SET_FAN_SWITCH			= 0x08,
+	SET_LED_INTEN			= 0x10, 
+
+#if 0
+    SetLED_OnOff	  		= 0x08,
+	SetLED_Color			= 0x10,
+	SetLED_R				= 0x20,   
+	SetLED_G				= 0x40, 	
+	SetLED_B				= 0x80, 	
+	SetMotor				= 0x100, 
+#endif
 
 }Attr_FlagsTypeDef;
 
@@ -99,6 +102,18 @@ typedef enum
 	PUMP_ON     = 0x00,
 	PUMP_OFF	= 0x01,
 }Pump_SwitchTypeDef;
+
+typedef enum
+{
+	EXTR_PUMP_ON     = 0x00,
+	EXTR_PUMP_OFF	= 0x01,
+}Extr_Pump_SwitchTypeDef;
+
+typedef enum
+{
+	FAN_ON     = 0x00,
+	FAN_OFF	= 0x01,
+}Extr_Fan_SwitchTypeDef;
 
 typedef enum
 {
@@ -120,13 +135,17 @@ __packed	typedef struct
 	uint8_t             Temperature;
 	uint8_t             Humidity;
 #endif
-
+#if 0
+    bool    Mode_set:1;
+    bool    Pump_Switch:1;	
+    bool    Extr_Pump_Switch:1;	
+    bool    FanSwitch:1;	
+    uint8_t LED_ctrl;
+#endif    
     uint8_t	Moisture;
     uint8_t	Temperature;
     uint8_t   Light_inten;
 }Device_ReadTypeDef;  
-
-
 
 /******************************************************
 *可写设备列表，以后要添加可写设备都添加到这里
@@ -141,9 +160,10 @@ __packed	typedef struct
 	uint16_t						Motor;
 #endif
     bool    Mode_set:1;
-    bool    Pump_Switch:1;
-    uint8_t	LED_ctrl;	
-	
+    bool    Pump_Switch:1;	
+    bool    Extr_Pump_Switch:1;	
+    bool    FanSwitch:1;	
+    uint8_t LED_ctrl;
 }Device_WirteTypeDef;
 
 

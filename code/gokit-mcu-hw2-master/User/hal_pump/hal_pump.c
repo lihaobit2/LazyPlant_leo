@@ -27,11 +27,11 @@ void Pump_Ctrl(u8 enableFlag)
 {
 	if(PUMP_ENABLE == enableFlag)
 	{
-		GPIO_SetBits(GPIO_PUMP_PORT, GPIO_PUMP_PIN);
+		GPIO_ResetBits(GPIO_PUMP_PORT, GPIO_PUMP_PIN);
 	}
 	else
 	{
-		GPIO_ResetBits(GPIO_PUMP_PORT, GPIO_PUMP_PIN);
+		GPIO_SetBits(GPIO_PUMP_PORT, GPIO_PUMP_PIN);
 	}
 
 	return;
@@ -60,6 +60,5 @@ void Pump_Proc(u16 moistValue, bool isAutoMode, bool pumpSwitch)
 	}
 	return;
 }
-
 
 

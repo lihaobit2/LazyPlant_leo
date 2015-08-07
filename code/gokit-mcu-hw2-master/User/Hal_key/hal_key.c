@@ -271,8 +271,8 @@ void KEY_Handle(void)
 * Description    : Key Long Press processing function
                    
 * Input          : KeyAction :
-														  RESS_KEY1 ->MCU To WIFI Send Reset command
-                              PRESS_KEY2 ->MCU To WIFI Send Config command
+					RESS_KEY1 ->MCU To WIFI Send Reset command
+                    PRESS_KEY2 ->MCU To WIFI Send Config command
 * Output         : None
 * Return         : None
 * Attention		 	 : None

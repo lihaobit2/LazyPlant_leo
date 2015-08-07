@@ -1,8 +1,8 @@
-#ifndef _xxHAL_PUMP_H
-#define _xxHAL_PUMP_H
+#ifndef _HAL_PUMP_H
+#define _HAL_PUMP_H
 
-#define PUMP_ENABLE   0
-#define PUMP_DISABLE  1
+#define PUMP_ENABLE   1
+#define PUMP_DISABLE  0
 #define PUMP_NULL	   0xff	
 
 

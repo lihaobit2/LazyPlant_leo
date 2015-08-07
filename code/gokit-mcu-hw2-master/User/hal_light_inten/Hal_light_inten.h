@@ -37,8 +37,13 @@
 #define LIGHT_ADC_GPIO_PORT GPIOA
 
 #define LIGHT_GPIO_CLK    RCC_APB2Periph_GPIOB
-#define LIGHT_GPIO_PORT   GPIOB
-#define LIGHT_GPIO_PIN    GPIO_Pin_11
+#define LIGHT_GPIO_PORT1   GPIOB
+#define LIGHT_GPIO_PIN1    GPIO_Pin_11
+//#define LIGHT_GPIO_PORT2   GPIOB
+//#define LIGHT_GPIO_PIN2    GPIO_Pin_13
+#define LIGHT_GPIO_CLK2    RCC_APB2Periph_GPIOA
+#define LIGHT_GPIO_PORT2   GPIOA
+#define LIGHT_GPIO_PIN2    GPIO_Pin_5
 
 
 void Light_Init(void);

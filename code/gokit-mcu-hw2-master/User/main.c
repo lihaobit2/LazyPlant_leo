@@ -22,6 +22,7 @@
   */ 
 #include "include.h"
 #include "hal_pump.h"
+#include "hal_extr_pump.h"
 #include "hal_moisture.h"
 #include "Hal_light_inten.h"
 
@@ -138,9 +139,10 @@ void printf_DevStatus(void)
 	printf("------------------------------ReportDevStatus-------------------------------------\r\n");
 	#endif
 
-	printf("Mode_set = %d,Pump_Switch=%d,LED_ctrl=%d; Moisture=%d; Temperature=%d,Light_inten=%d;\r\n",
+	printf("Mode_set = %d,Pump_Switch=%d,Extr_pump:%dLED_ctrl=%d; Moisture=%d; Temperature=%d,Light_inten=%d;\r\n",
 	Pro_D2W_ReportStatusStruct.Device_All.Device_Wirte.Mode_set,
 	Pro_D2W_ReportStatusStruct.Device_All.Device_Wirte.Pump_Switch,
+	Pro_D2W_ReportStatusStruct.Device_All.Device_Wirte.Extr_Pump_Switch,
 	Pro_D2W_ReportStatusStruct.Device_All.Device_Wirte.LED_ctrl,
 	Pro_D2W_ReportStatusStruct.Device_All.Device_Read.Moisture,
 	Pro_D2W_ReportStatusStruct.Device_All.Device_Read.Temperature,
@@ -172,7 +174,7 @@ void Hal_Init(void)
 	OLED_ShowString(40, 0, "GoKit");
 	OLED_ShowString(0, 32, "www.gizwits.com");	
 
-	//Moist_Init();
+	Moist_Init();
 	printf("Moisture init succesful!\r\n");
 
 	#if 1
@@ -185,8 +187,13 @@ void Hal_Init(void)
 	printf("Pump init succesful!\r\n");
 	#endif
 
+	Extr_Pump_Init();
+	printf("Extract pump init succesful!\r\n");
 
-	
+	Fan_Init();
+ 	printf("Fan init succesful!\r\n");
+
+	return;
 }
 
 void ReportDevStatusHandle(void);
@@ -194,7 +201,7 @@ void ReportDevStatusHandle(void);
 int main(void)
 {
 	u8 MoistVal = 0;
-	u8 temp;
+
  (void)MoistVal;
 	
 	SystemInit();
@@ -210,17 +217,18 @@ int main(void)
 		KEY_Handle();		
 		IR_Handle();
 		//DHT11_Read_Data(&Device_ReadStruct.Temperature, &Device_ReadStruct.Humidity);
-		DHT11_Read_Data(&Device_ReadStruct.Temperature, &temp);
+		//DHT11_Read_Data(&Device_ReadStruct.Temperature, &temp);
 		Device_ReadStruct.Moisture  = Moist_Read();
 		
 		Pump_Proc(Device_ReadStruct.Moisture, Device_WirteStruct.Mode_set, Device_WirteStruct.Pump_Switch);
+		Extr_Pump_Proc(Device_WirteStruct.Mode_set, Device_WirteStruct.Extr_Pump_Switch);
 		
 		Device_ReadStruct.Light_inten = Light_SensorRead();
 		Light_Proc(Device_ReadStruct.Light_inten,
 					Device_WirteStruct.LED_ctrl,
 					Device_WirteStruct.Mode_set);
-
-
+					
+		Fan_Proc(Device_WirteStruct.Mode_set, Device_WirteStruct.FanSwitch);
 		/*For app test*/
         //Device_ReadStruct.Light_inten = 2;
         //Device_ReadStruct.Moisture    = MoistVal;

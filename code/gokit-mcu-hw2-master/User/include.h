@@ -30,6 +30,8 @@
 #include "./Hal_OLED/Hal_OLED.h"
 #include "./Hal_moisture/Hal_moisture.h"
 #include "./Hal_pump/Hal_pump.h"
+#include "./Hal_extr_pump/Hal_extr_pump.h"
+#include "./Hal_fan/Hal_fan.h"
 
 #include "System_time.h"
 #include "RTC.h"

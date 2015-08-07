@@ -7,6 +7,7 @@
 #include "Hal_light_inten.h"
 #include "Hal_moisture.h"
 
+extern Device_WirteTypeDef   					  Device_WirteStruct;
 
 /*
  * º¯ÊýÃû£ºTIM4_GPIO_Config
@@ -99,8 +100,12 @@ void Light_gpio_Init()
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD; 
 	  
-	GPIO_InitStructure.GPIO_Pin = LIGHT_GPIO_PIN;
-	GPIO_Init(LIGHT_GPIO_PORT, &GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Pin = LIGHT_GPIO_PIN1;
+	GPIO_Init(LIGHT_GPIO_PORT1, &GPIO_InitStructure);
+
+	RCC_APB2PeriphClockCmd(LIGHT_GPIO_CLK2, ENABLE);
+	GPIO_InitStructure.GPIO_Pin = LIGHT_GPIO_PIN2;
+	GPIO_Init(LIGHT_GPIO_PORT2, &GPIO_InitStructure);
 
 	return;
 }
@@ -117,61 +122,40 @@ void Light_CfgInten(u8 m1,u8 m2)
 	return;
 }
 
-void Light_Ctrl(u16 intensLevel)
+void Light_Ctrl(u16 Level)
 {		
-#if 0
-	if(status == 5)
+	if(Level == 0)
 	{
-		Light_Ctrl(0,0);
+		GPIO_SetBits(LIGHT_GPIO_PORT1, LIGHT_GPIO_PIN1);
+		GPIO_SetBits(LIGHT_GPIO_PORT2, LIGHT_GPIO_PIN2);	
+		//GPIO_ResetBits(LIGHT_GPIO_PORT1, LIGHT_GPIO_PIN1);
+		//GPIO_ResetBits(LIGHT_GPIO_PORT2, LIGHT_GPIO_PIN2);
 	}
-	else if (status > 5)
+	else if(Level == 1)
 	{
-		Light_Ctrl(status*10,0);
+		GPIO_SetBits(LIGHT_GPIO_PORT1, LIGHT_GPIO_PIN1);
+		GPIO_ResetBits(LIGHT_GPIO_PORT2, LIGHT_GPIO_PIN2);		
 	}
-	else if (status < 5)
+	else if(Level == 2)
 	{
-		Light_Ctrl(0,(10-status)*10);
-	}
-#endif
-	if(intensLevel <= LIGHT_INTENS_LEVEL_THRESHOLD)
-	{
-		GPIO_SetBits(LIGHT_GPIO_PORT, LIGHT_GPIO_PIN);
-	}
-	else
-	{
-		GPIO_ResetBits(LIGHT_GPIO_PORT, LIGHT_GPIO_PIN);
+		GPIO_ResetBits(LIGHT_GPIO_PORT1, LIGHT_GPIO_PIN1);
+		GPIO_ResetBits(LIGHT_GPIO_PORT2, LIGHT_GPIO_PIN2);
+		//GPIO_SetBits(LIGHT_GPIO_PORT1, LIGHT_GPIO_PIN1);	
+		//GPIO_SetBits(LIGHT_GPIO_PORT2, LIGHT_GPIO_PIN2);
 	}
 	
 	return;
 }
-void Light_Proc(u16 meaIntens, u16 appCfgIntens, bool isAutoMode)
+void Light_Proc(u16 meaIntens, u16 appLedCfg, bool isAutoMode)
 {		
-	u8	ledLevel;
 
-#if 0
-	if(status == 5)
-	{
-		Light_Ctrl(0,0);
-	}
-	else if (status > 5)
-	{
-		Light_Ctrl(status*10,0);
-	}
-	else if (status < 5)
-	{
-		Light_Ctrl(0,(10-status)*10);
-	}
-#endif
 	if(TRUE == isAutoMode)
 	{
-		ledLevel = (meaIntens < LIGHT_INTENS_SENSOR_THRESHOLD) ? LIGHT_INTENS_LEVEL_MIN: LIGHT_INTENS_LEVEL_MAX;
-
-		Light_Ctrl(ledLevel);
 	}
 	else
 	{
-		ledLevel = (appCfgIntens < LIGHT_APP_CFG_THRESHOLD) ? LIGHT_INTENS_LEVEL_MIN: LIGHT_INTENS_LEVEL_MAX;
-		Light_Ctrl(ledLevel);
+		printf("appCfgIntens:%d\r\n",appLedCfg);
+		Light_Ctrl(appLedCfg);
 	}
 
 	return;

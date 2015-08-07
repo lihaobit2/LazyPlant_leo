@@ -4,9 +4,47 @@
   * @author  leo
   *******************************************************************************/ 
 #include "include.h"
-#include "hal_fan.h"
+
+void Fan_Init(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	RCC_APB2PeriphClockCmd(GPIO_FAN_CLK, ENABLE);
+	  
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD; 
+	  
+	GPIO_InitStructure.GPIO_Pin = GPIO_FAN_PIN;
+	GPIO_Init(GPIO_FAN_PORT, &GPIO_InitStructure);
+
+	return;
+}
+
+void Fan_Ctrl(u8 enable)
+{
+	if(FAN_ENABLE == enable)
+	{
+		GPIO_ResetBits(GPIO_FAN_PORT, GPIO_FAN_PIN);
+	}
+	else
+	{
+		GPIO_SetBits(GPIO_FAN_PORT, GPIO_FAN_PIN);
+	}
+
+	return;
+}
+
+void Fan_Proc(bool isAutoMode, bool enable)
+{
+	(void)isAutoMode;
+	
+	Fan_Ctrl(enable);	
+	printf("fan switch:%d\r\n",enable);	
+
+	return;
+}
 
 
+#if 0
 /*
  * 函数名：TIM2_GPIO_Config
  * 描述  ：配置TIM2复用输出PWM时用到的I/O
@@ -109,5 +147,5 @@ void Fan_status(uint16_t status)
 	{
 		Fan_Ctrl(0,(10-status)*10);
 	}
-
 }
+#endif

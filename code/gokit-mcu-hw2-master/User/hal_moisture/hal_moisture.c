@@ -89,7 +89,6 @@ u16 ADC_GetAvgVal(u8 ch,u8 n, ADC_TypeDef* ADCx)
 	u32 ad_sum = 0; 
 	u8 i; 
 	for(i=0;i<n;i++)
-
 	{
 		ad_sum += ADC_GetVal(ch, ADCx);
 		Delay_ms(5); 

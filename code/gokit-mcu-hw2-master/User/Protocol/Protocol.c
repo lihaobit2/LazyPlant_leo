@@ -310,8 +310,9 @@ void Pro_W2D_Control_DevceHandle(void)
 				printf("Set auto mode  \r\n");
 			}
 			break;			
+
 		case SET_PUMP_SWITCH:	
-			Device_WirteStruct.Pump_Switch = Pro_P0_ControlStruct.Device_Wirte.Pump_Switch ;
+			Device_WirteStruct.Pump_Switch = Pro_P0_ControlStruct.Device_Wirte.Pump_Switch;
 
 			/*Control in main loop, not here*/
 			//Pump_Proc(0, Device_WirteStruct.Mode_set, Device_WirteStruct.Pump_Switch);
@@ -325,15 +326,38 @@ void Pro_W2D_Control_DevceHandle(void)
 				printf("Pump off  \r\n");
 			}
 
+			break;	
+		
+		case SET_EXTR_PUMP_SWITCH:	
+			Device_WirteStruct.Extr_Pump_Switch = Pro_P0_ControlStruct.Device_Wirte.Extr_Pump_Switch;
+
+			if(Pro_P0_ControlStruct.Device_Wirte.Extr_Pump_Switch == EXTR_PUMP_ON)
+			{
+				printf("Extract pump on  \r\n");
+			}
+			if(Pro_P0_ControlStruct.Device_Wirte.Extr_Pump_Switch == EXTR_PUMP_OFF)
+			{
+				printf("Extract pump off  \r\n");
+			}
 			break;
+		case SET_FAN_SWITCH:	
+			Device_WirteStruct.FanSwitch = Pro_P0_ControlStruct.Device_Wirte.FanSwitch;
+		
+			if(Pro_P0_ControlStruct.Device_Wirte.FanSwitch == FAN_ON)
+			{
+				printf("Fan_Switch on  \r\n");
+			}
+			if(Pro_P0_ControlStruct.Device_Wirte.FanSwitch == FAN_OFF)
+			{
+				printf("Fan_Switch off  \r\n");
+			}
+			break;	
 		case SET_LED_INTEN:
 			Device_WirteStruct.LED_ctrl= Pro_P0_ControlStruct.Device_Wirte.LED_ctrl ;
-	
-			printf("Set LED inten value:%d  \r\n", Device_WirteStruct.LED_ctrl);
-	
-			break;
-	
 		
+			printf("Set LED inten value:%d	\r\n", Device_WirteStruct.LED_ctrl);
+		
+			break;
 	
 /*************************************添加更多可写设备**********************************************/
 
@@ -371,6 +395,7 @@ void Pro_D2W_ReportDevStatusHandle(void)
 
 	Pro_D2W_ReportStatusStruct.Device_All.Device_Wirte.Mode_set = Device_WirteStruct.Mode_set;
 	Pro_D2W_ReportStatusStruct.Device_All.Device_Wirte.Pump_Switch = Device_WirteStruct.Pump_Switch;
+	Pro_D2W_ReportStatusStruct.Device_All.Device_Wirte.Extr_Pump_Switch = Device_WirteStruct.Extr_Pump_Switch;
 	Pro_D2W_ReportStatusStruct.Device_All.Device_Wirte.LED_ctrl = Device_WirteStruct.LED_ctrl;
 
 	Pro_D2W_ReportStatusStruct.Device_All.Device_Read.Moisture = Device_ReadStruct.Moisture;
