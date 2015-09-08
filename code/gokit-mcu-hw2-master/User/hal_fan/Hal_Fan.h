@@ -10,7 +10,7 @@
 #define GPIO_FAN_PORT   GPIOA
 #define GPIO_FAN_PIN    GPIO_Pin_4
 
-void Fan_Init(void);
+void Fan_Init(void);	
 void Fan_Ctrl(u8 enable);
 void Fan_Proc(bool isAutoMode, bool enable);
 

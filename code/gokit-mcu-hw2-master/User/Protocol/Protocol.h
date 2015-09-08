@@ -9,7 +9,7 @@
 #define		P0_VER																"00000004"
 #define		HARD_VER															"00000001"
 #define		SOFT_VER															"00000001"
-#define		PRODUCT_KEY														"b5233d4f527a46f2bee2e722e10e700a"//"6f3074fe43894547a4f1314bd7e3ae0b"
+#define		PRODUCT_KEY									"24a5b8bc0eee4aa1b78c4d4176b1358a"//"b5233d4f527a46f2bee2e722e10e700a"//24a5b8bc0eee4aa1b78c4d4176b1358a//"6f3074fe43894547a4f1314bd7e3ae0b"
 
 
 __packed	typedef struct	

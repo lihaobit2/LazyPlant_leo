@@ -11,7 +11,7 @@
 
 #define GPIO_PUMP_CLK    RCC_APB2Periph_GPIOB
 #define GPIO_PUMP_PORT   GPIOB
-#define GPIO_PUMP_PIN    GPIO_Pin_6
+#define GPIO_PUMP_PIN    GPIO_Pin_0//GPIO_Pin_6
 
 void Pump_Init(void);
 void Pump_Ctrl(u8 enableFlag);
