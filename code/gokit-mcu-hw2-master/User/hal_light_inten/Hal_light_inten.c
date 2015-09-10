@@ -8,7 +8,7 @@
 #include "Hal_moisture.h"
 
 extern Device_WirteTypeDef   					  Device_WirteStruct;
-
+u8 g_light_th = 0;
 /*
  * 函数名：TIM4_GPIO_Config
  * 描述  ：配置TIM4复用输出PWM时用到的I/O
@@ -151,6 +151,14 @@ void Light_Proc(u16 meaIntens, u16 appLedCfg, bool isAutoMode)
 
 	if(TRUE == isAutoMode)
 	{
+		if(meaIntens < g_light_th)
+		{
+			Light_Ctrl(2);			
+		}
+		else
+		{
+			Light_Ctrl(0);		
+		}
 	}
 	else
 	{
@@ -213,5 +221,12 @@ u8 Light_SensorRead(void)
 	printf("light intensity value:%d \r\n", LightVal);
 
 	return (LightVal >> LIGHT_VALUE_SHIFT);
+}
+
+void Light_Set_Th(u8 light_th)
+{
+	g_light_th = light_th;
+
+	return;
 }
 

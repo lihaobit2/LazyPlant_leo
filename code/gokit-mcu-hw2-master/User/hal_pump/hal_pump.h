@@ -15,7 +15,7 @@
 
 void Pump_Init(void);
 void Pump_Ctrl(u8 enableFlag);
-void Pump_Proc(u16 moistValue, bool isAutoMode, bool pumpSwitch);
+void Pump_Proc(bool isAutoMode, bool pumpSwitch);
 
 #endif
 

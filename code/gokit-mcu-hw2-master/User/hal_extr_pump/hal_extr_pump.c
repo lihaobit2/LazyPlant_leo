@@ -8,6 +8,7 @@
   ******************************************************************************/
 #include "include.h"
 
+uint8_t g_moist_th;
 
 void Extr_Pump_Init(void)
 {
@@ -37,15 +38,36 @@ void Extr_Pump_Ctrl(u8 enableFlag)
 	return;
 }
 
-void Extr_Pump_Proc(bool isAutoMode, bool pumpSwitch)
+void Extr_Pump_Proc(u8 moistValue, bool isAutoMode, bool pumpSwitch)
 {
-	(void) isAutoMode;
-
-	Extr_Pump_Ctrl(pumpSwitch);	
-	printf("manual pump, pumpSwitch:%d\r\n",pumpSwitch);	
+	if(TRUE == isAutoMode)
+	{
+		if(moistValue < g_moist_th)
+		{
+			Pump_Ctrl(PUMP_DISABLE);
+			printf("auto disable pump, mositure:%d\r\n",moistValue);
+		}
+		else
+		{
+			Pump_Ctrl(PUMP_ENABLE);	
+			printf("auto enable pump, mositure:%d\r\n",moistValue);		
+		}
+	}
+	else
+	{
+		Extr_Pump_Ctrl(pumpSwitch);	
+		printf("manual pump, pumpSwitch:%d\r\n",pumpSwitch);		
+	}
+	
 
 	return;
 }
 
+void Extr_Pump_SetMoistTh(u8 moist_th)
+{
+	g_moist_th = moist_th;
+
+	return;
+}
 
 

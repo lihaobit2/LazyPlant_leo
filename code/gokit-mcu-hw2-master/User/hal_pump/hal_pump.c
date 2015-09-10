@@ -8,6 +8,7 @@
   ******************************************************************************/
 #include "include.h"
 
+uint8_t g_cycle_pump_peri;
 
 void Pump_Init(void)
 {
@@ -37,26 +38,16 @@ void Pump_Ctrl(u8 enableFlag)
 	return;
 }
 
-void Pump_Proc(u16 moistValue, bool isAutoMode, bool pumpSwitch)
+void Pump_Proc(bool isAutoMode, bool pumpSwitch)
 {
 
 	if(TRUE == isAutoMode)
 	{
-		if(moistValue < PUMP_THRESHOLD)
-		{
-			Pump_Ctrl(PUMP_DISABLE);
-			printf("auto disable pump, mositure:%d\r\n",moistValue);
-		}
-		else
-		{
-			Pump_Ctrl(PUMP_ENABLE);	
-			printf("auto enable pump, mositure:%d\r\n",moistValue);		
-		}
 	}
 	else
 	{
-			Pump_Ctrl(pumpSwitch);	
-			printf("manual pump, pumpSwitch:%d\r\n",pumpSwitch);	
+		Pump_Ctrl(pumpSwitch);	
+		printf("manual pump, pumpSwitch:%d\r\n",pumpSwitch);	
 	}
 	return;
 }

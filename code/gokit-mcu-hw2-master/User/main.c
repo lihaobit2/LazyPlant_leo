@@ -220,8 +220,8 @@ int main(void)
 		//DHT11_Read_Data(&Device_ReadStruct.Temperature, &temp);
 		Device_ReadStruct.Moisture  = Moist_Read();
 		
-		Pump_Proc(Device_ReadStruct.Moisture, Device_WirteStruct.Mode_set, Device_WirteStruct.Pump_Switch);
-		Extr_Pump_Proc(Device_WirteStruct.Mode_set, Device_WirteStruct.Extr_Pump_Switch);
+		Pump_Proc(Device_WirteStruct.Mode_set, Device_WirteStruct.Pump_Switch);
+		Extr_Pump_Proc(Device_ReadStruct.Moisture, Device_WirteStruct.Mode_set, Device_WirteStruct.Extr_Pump_Switch);
 		
 		Device_ReadStruct.Light_inten = Light_SensorRead();
 		Light_Proc(Device_ReadStruct.Light_inten,

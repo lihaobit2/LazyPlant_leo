@@ -79,6 +79,9 @@ typedef enum
 	SET_EXTR_PUMP_SWITCH 	= 0x04,
 	SET_FAN_SWITCH			= 0x08,
 	SET_LED_INTEN			= 0x10, 
+	SET_MOIST_TH			= 0x20,
+	SET_LIGHT_TH			= 0x40,
+	SET_CYCLE_PUMP_PERI	= 0x80,
 
 #if 0
     SetLED_OnOff	  		= 0x08,
@@ -164,6 +167,9 @@ __packed	typedef struct
     bool    Extr_Pump_Switch:1;	
     bool    FanSwitch:1;	
     uint8_t LED_ctrl;
+    uint8_t Moist_th;
+    uint8_t Light_th;
+    uint8_t Cycle_pump_peri;    
 }Device_WirteTypeDef;
 
 

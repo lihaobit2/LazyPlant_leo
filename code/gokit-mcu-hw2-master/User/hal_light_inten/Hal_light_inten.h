@@ -45,6 +45,7 @@
 #define LIGHT_GPIO_PORT2   GPIOA
 #define LIGHT_GPIO_PIN2    GPIO_Pin_5
 
+extern u8 g_light_th;
 
 void Light_Init(void);
 void Light_status(u16 status);
@@ -53,6 +54,7 @@ void Light_Proc(u16 meaIntens, u16 appCfgIntens, bool isAutoMode);
 void Light_Ctrl(u16 intensLevel);
 void Light_adc_Init(void);	   
 void Light_gpio_Init(void);
+void Light_Set_Th(u8 light_th);
 
 #endif /*_HAL_Inten_H*/
 

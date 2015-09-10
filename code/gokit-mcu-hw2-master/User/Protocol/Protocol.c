@@ -22,6 +22,9 @@
   */ 
 	
 #include "include.h"
+#include "Hal_light_inten.h"
+#include "hal_extr_pump.h"
+
 
 extern UART_HandleTypeDef  				UART_HandleStruct;
 
@@ -41,6 +44,9 @@ extern Pro_W2D_WifiStatusTypeDef      Pro_W2D_WifiStatusStruct;
 //extern Pro_D2W_ReportDevStatusTypeDef   Pro_D2W_ReportStatusStruct;
 extern uint8_t									     SN; 
 extern uint8_t Set_LedStatus;
+extern 	uint8_t g_light_th;
+extern 	uint8_t g_moist_th;
+extern 	uint8_t g_cycle_pump_peri;
 
 
 /*******************************************************************************
@@ -358,7 +364,26 @@ void Pro_W2D_Control_DevceHandle(void)
 			printf("Set LED inten value:%d	\r\n", Device_WirteStruct.LED_ctrl);
 		
 			break;
+		case SET_MOIST_TH:
+				Device_WirteStruct.Moist_th= Pro_P0_ControlStruct.Device_Wirte.Moist_th ;
 	
+				Extr_Pump_SetMoistTh(Device_WirteStruct.Moist_th);
+				printf("Set mosit threshold:%d	\r\n", Device_WirteStruct.Moist_th);
+
+				break;
+		case SET_LIGHT_TH:
+				Device_WirteStruct.Light_th= Pro_P0_ControlStruct.Device_Wirte.Light_th ;
+				Light_Set_Th(Device_WirteStruct.Light_th);
+				printf("Set light threshold value:%d\r\n", Device_WirteStruct.Light_th);
+
+				break;
+		case SET_CYCLE_PUMP_PERI:
+				Device_WirteStruct.Cycle_pump_peri= Pro_P0_ControlStruct.Device_Wirte.Cycle_pump_peri ;
+			    g_cycle_pump_peri = Device_WirteStruct.Cycle_pump_peri;
+
+				printf("Set cycle pump peiriod:%d	\r\n", Device_WirteStruct.Cycle_pump_peri);
+			
+				break;			
 /*************************************添加更多可写设备**********************************************/
 
 
@@ -397,6 +422,11 @@ void Pro_D2W_ReportDevStatusHandle(void)
 	Pro_D2W_ReportStatusStruct.Device_All.Device_Wirte.Pump_Switch = Device_WirteStruct.Pump_Switch;
 	Pro_D2W_ReportStatusStruct.Device_All.Device_Wirte.Extr_Pump_Switch = Device_WirteStruct.Extr_Pump_Switch;
 	Pro_D2W_ReportStatusStruct.Device_All.Device_Wirte.LED_ctrl = Device_WirteStruct.LED_ctrl;
+
+	Pro_D2W_ReportStatusStruct.Device_All.Device_Wirte.Moist_th = Device_WirteStruct.Moist_th;
+	Pro_D2W_ReportStatusStruct.Device_All.Device_Wirte.Light_th = Device_WirteStruct.Light_th;
+	Pro_D2W_ReportStatusStruct.Device_All.Device_Wirte.Cycle_pump_peri = Device_WirteStruct.Cycle_pump_peri;
+
 
 	Pro_D2W_ReportStatusStruct.Device_All.Device_Read.Moisture = Device_ReadStruct.Moisture;
 	Pro_D2W_ReportStatusStruct.Device_All.Device_Read.Temperature = Device_ReadStruct.Temperature;
